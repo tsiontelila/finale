@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flower Shop Inventory</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    h1 {
+      color: #2d6a4f;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌼 Flower Shop Inventory</h1>
+  <table id="flowerTable" class="display" style="width:100%">
+    <thead>
+      <tr>
+        <th>Flower Name</th>
+        <th>Category</th>
+        <th>Price ($)</th>
+        <th>Quantity in Stock</th>
+        <th>Supplier</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Rose</td>
+        <td>Romantic</td>
+        <td>2.50</td>
+        <td>100</td>
+        <td>Bloom World</td>
+      </tr>
+      <tr>
+        <td>Lily</td>
+        <td>Elegant</td>
+        <td>3.00</td>
+        <td>75</td>
+        <td>Nature's Beauty</td>
+      </tr>
+      <tr>
+        <td>Sunflower</td>
+        <td>Bright</td>
+        <td>1.80</td>
+        <td>150</td>
+        <td>Golden Petals</td>
+      </tr>
+      <tr>
+        <td>Orchid</td>
+        <td>Exotic</td>
+        <td>5.00</td>
+        <td>40</td>
+        <td>Orchid Heaven</td>
+      </tr>
+      <tr>
+        <td>Tulip</td>
+        <td>Spring</td>
+        <td>2.20</td>
+        <td>90</td>
+        <td>Fresh Buds</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- jQuery and DataTables script -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#flowerTable').DataTable();
+    });
+  </script>
+
+</body>
+</html>

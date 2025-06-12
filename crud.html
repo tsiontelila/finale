@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple CRUD App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<script>
+  // Container setup
+  const container = document.createElement('div');
+  container.className = 'container mt-5';
+  container.style.maxWidth = '500px';
+
+  const heading = document.createElement('h2');
+  heading.textContent = 'Name List';
+  heading.className = 'mb-4 text-center';
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.placeholder = 'Enter name';
+  input.className = 'form-control mb-2';
+  input.id = 'nameInput';
+
+  const addButton = document.createElement('button');
+  addButton.textContent = 'Add Name';
+  addButton.className = 'btn btn-primary w-100 mb-3';
+  addButton.onclick = addName;
+
+  const list = document.createElement('div');
+  list.id = 'nameList';
+
+  let selectedIndex = -1;
+
+  const names = [];
+
+  function addName() {
+    const name = document.getElementById('nameInput').value.trim();
+    if (name) {
+      if (selectedIndex === -1) {
+        names.push(name);
+      } else {
+        names[selectedIndex] = name;
+        selectedIndex = -1;
+        addButton.textContent = 'Add Name';
+      }
+      document.getElementById('nameInput').value = '';
+      renderList();
+    }
+  }
+
+  function renderList() {
+    list.innerHTML = '';
+    names.forEach((name, index) => {
+      const item = document.createElement('div');
+      item.className = 'd-flex justify-content-between align-items-center bg-light p-2 mb-2 rounded';
+
+      const span = document.createElement('span');
+      span.textContent = name;
+
+      const btnGroup = document.createElement('div');
+
+      const editBtn = document.createElement('button');
+      editBtn.textContent = 'Edit';
+      editBtn.className = 'btn btn-sm btn-warning me-2';
+      editBtn.onclick = () => {
+        document.getElementById('nameInput').value = name;
+        selectedIndex = index;
+        addButton.textContent = 'Update Name';
+      };
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.className = 'btn btn-sm btn-danger';
+      deleteBtn.onclick = () => {
+        names.splice(index, 1);
+        renderList();
+      };
+
+      btnGroup.appendChild(editBtn);
+      btnGroup.appendChild(deleteBtn);
+      item.appendChild(span);
+      item.appendChild(btnGroup);
+      list.appendChild(item);
+    });
+  }
+
+  // Assemble the app
+  container.appendChild(heading);
+  container.appendChild(input);
+  container.appendChild(addButton);
+  container.appendChild(list);
+  document.body.appendChild(container);
+</script>
+</body>
+</html>

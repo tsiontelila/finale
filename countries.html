@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+  </body>
+
+  <div class="container py-5" ></div>
+    <div class="row" id="dataAppend"></div>
+
+    <script>
+
+        let url='https://restcountries.com/v3.1/all'
+
+        fetch(url)
+        .then(response=>response.json())
+        .then(response=>{
+            response.forEach(restcountries => {
+
+                /*
+<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>*/
+                const card = document.createElement('div')
+                card.className='card col-lg-3 col-md-4 col-sm-6'
+                card.style.margin='10px'
+                card.style.width='18rem'
+                card.style.height='18rem'
+
+                
+
+                const img = document.createElement('img')
+                img.src=restcountries.flags.svg
+                img.classname='card-img-top'
+
+                const cardbody= document.createElement('div')
+                cardbody.className='card-body'
+
+                const header= document.createElement('h5')
+                header.className='card-title'
+                header.textContent=restcountries.name.common
+
+
+                const parag = document.createElement('p')
+                parag.className='card-text'
+                parag.textContent=restcountries.flags.alt
+
+                const btn = document.createElement('a')
+                btn.href='#'
+                btn.className='btn btn-primary'
+                btn.textContent=restcountries.region
+
+
+
+                card.appendChild(img)
+                card.appendChild(cardbody)
+                card.appendChild(parag)
+                card.appendChild(header)
+                card.appendChild(btn)
+                document.body.appendChild(card)
+
+              document.getElementById('dataAppend').appendChild(card)
+
+console.log(img)
+                
+            });
+        })
+    </script>
+
+</html>

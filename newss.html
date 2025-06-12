@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap Starter Template</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button"
+        data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <h1>Welcome to Bootstrap</h1>
+    <p>This is a simple starter template using Bootstrap 5.</p>
+
+    <div class="row" id="dataAppend">
+      <!-- Cards will go here -->
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const url = 'https://saurav.tech/NewsAPI/top-headlines/category/health/in.json';
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        // data.articles is the array of news items
+        data.articles.forEach(article => {
+          // create card container
+          const col = document.createElement('div');
+          col.className = 'col-lg-3 col-md-4 col-sm-6 mb-4';
+
+          const card = document.createElement('div');
+          card.className = 'card h-100';
+
+          // image (if available)
+          if (article.urlToImage) {
+            const img = document.createElement('img');
+            img.src = article.urlToImage;
+            img.className = 'card-img-top';
+            img.alt = article.title || 'News image';
+            card.appendChild(img);
+          }
+
+          // card body
+          const body = document.createElement('div');
+          body.className = 'card-body d-flex flex-column';
+
+          const title = document.createElement('h5');
+          title.className = 'card-title';
+          title.innerText = article.title || 'No title';
+
+          const desc = document.createElement('p');
+          desc.className = 'card-text';
+          desc.innerText = article.description || '';
+
+          // link button
+          const link = document.createElement('a');
+          link.className = 'btn btn-primary mt-auto'; 
+          link.href = article.url;
+          link.target = '_blank';
+          link.rel = 'noopener';
+          link.innerText = 'Read more';
+
+          body.append(title, desc, link);
+          card.appendChild(body);
+          col.appendChild(card);
+
+          document.getElementById('dataAppend').appendChild(col);
+        });
+      })
+      .catch(err => console.error('Error fetching articles:', err));
+  </script>
+</body>
+</html>

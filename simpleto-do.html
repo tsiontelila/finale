@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+</head>
+
+<body>
+    <div class="container" id="taskinput"></div>
+    <ol class="container" id="list">
+
+    </ol>
+
+    <script>
+        // Create input field and button
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const userinput = document.createElement('input');
+            userinput.type = 'text';
+            userinput.id = 'userinput1';
+
+        const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.textContent = 'Add Task';
+            btn.onclick = add;
+
+        card.appendChild(userinput);
+        card.appendChild(btn);
+        document.getElementById('taskinput').appendChild(card);
+
+        function add() {
+            const inputValue = document.getElementById('userinput1').value
+            if (inputValue === '') 
+            return;
+
+            let listItem = document.createElement('li');
+                listItem.textContent = inputValue;
+
+            // Create buttons
+            const editBtn = document.createElement('button');
+            editBtn.textContent = 'Edit';
+            editBtn.onclick = function() {
+                const newValue = prompt('Enter new task:', listItem.firstChild.textContent);
+                if (newValue) {
+                    listItem.firstChild.textContent = newValue;
+                }
+                saveToLocalStorage();
+            };
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = ' Delete';
+            deleteBtn.onclick = function() {
+                listItem.remove();
+                saveToLocalStorage();
+            };
+
+
+            // Append text and buttons
+            listItem.appendChild(editBtn);
+            listItem.appendChild(deleteBtn);
+            document.getElementById('list').appendChild(listItem);
+
+            document.getElementById('userinput1').value = '';
+            saveToLocalStorage() ;
+        }
+
+        function saveToLocalStorage() {
+            const items = document.querySelectorAll('#list li');
+            const tasks = [];
+                items.forEach(item => {
+                    tasks.push(item.firstChild.textContent);
+                });
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            console.log(JSON.parse(localStorage.getItem('tasks')))
+            alert('Tasks updated!');
+        }
+    </script>
+</body>
+
+</html>
